@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!-- Main Content -->
+<div th:fragment="blank-section" class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Blank Page</h1>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            Authenticated as <span sec:authentication="principal.username"></span></div>
+
+        <div class="section-body">
+        </div>
+    </section>
+</div>
+</html>

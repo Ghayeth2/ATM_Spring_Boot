@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<div th:fragment="sidebar-section" class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a href="index.html">ATM</a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="index.html">ATM</a>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="dropdown active">
+                <a href="#" class="nav-link"><i class="fa-solid fa-house"></i><span>Home</span></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fa-solid fa-money-check"></i> <span>Transaction</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="layout-default.html">Deposit</a></li>
+                    <li><a class="nav-link" href="layout-transparent.html">Withdraw</a></li>
+                    <li><a class="nav-link" href="layout-top-navigation.html">Transfer</a></li>
+                    <li><a class="nav-link" href="layout-top-navigation.html">History</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fa fa-bank"></i> <span>Account</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="bootstrap-alert.html">New</a></li>
+                    <li><a class="nav-link" href="bootstrap-badge.html">Settings</a></li>
+                    <li><a class="nav-link" href="bootstrap-breadcrumb.html">Secure</a></li> <!-- send notifications if account is accessed.
+                     set password for account etc.-->
+                </ul>
+            </li>
+            <!--            -->
+            <li class="dropdown">
+
+                <a href="#" class="nav-link has-dropdown"> <i class="fa-solid fa-gears"></i> <span>Settings</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="#">Roles</a></li>
+                    <li><a class="nav-link beep beep-sidebar" href="#">Users</a></li>
+                    <li><a class="nav-link beep beep-sidebar" href="#">Report</a></li>
+                    <!-- IN ADMIN SIDE THE LIST OF REPORTS WILL BE SHOWN IN USER'S SIDE
+                    REPORT FORM WILL BE DISPLAYED -->
+                    <!--                    <li><a class="nav-link beep beep-sidebar" href="#">Messages</a></li>-->
+                </ul>
+            </li>
+        </ul>
+
+    </aside>
+</div>
+</html>
