@@ -4,6 +4,7 @@ import com.atm.business.abstracts.UserService;
 import com.atm.core.bean.PasswordEncoderBean;
 import com.atm.core.utils.converter.DtoEntityConverter;
 import com.atm.dao.UserDao;
+import com.atm.model.dtos.CustomUserDetailsDto;
 import com.atm.model.dtos.UserDto;
 import com.atm.model.entities.Role;
 import com.atm.model.entities.User;
@@ -61,15 +62,12 @@ public class UserManager implements UserService {
         if(user == null){
             throw new UsernameNotFoundException("Invalid username or password!");
         }
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword(),
-                mapRolesToAuthorities(user.getRoles())
-        );
+        return new CustomUserDetailsDto(user);
 
     }
 
     // Mapping Roles GrantedAuthority
-    private List<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles){
+    public List<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles){
         return roles.stream().map(
                 // Changing Roles to SimpleGrantedAuthority Object
                 role ->  new SimpleGrantedAuthority(role.getName())
