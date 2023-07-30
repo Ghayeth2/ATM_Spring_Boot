@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{fragments/headFragment::head-section}"></head>
 <div th:fragment="sidebar-section" class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
@@ -16,18 +17,18 @@
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fa-solid fa-money-check"></i> <span>Transaction</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="layout-default.html">Deposit</a></li>
-                    <li><a class="nav-link" href="layout-transparent.html">Withdraw</a></li>
-                    <li><a class="nav-link" href="layout-top-navigation.html">Transfer</a></li>
-                    <li><a class="nav-link" href="layout-top-navigation.html">History</a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link" href="layout-default.html">Deposit</a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link" href="layout-transparent.html">Withdraw</a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link" href="layout-top-navigation.html">Transfer</a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link" href="layout-top-navigation.html">History</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fa fa-bank"></i> <span>Account</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="bootstrap-alert.html">New</a></li>
-                    <li><a class="nav-link" href="bootstrap-badge.html">Settings</a></li>
-                    <li><a class="nav-link" href="bootstrap-breadcrumb.html">Secure</a></li> <!-- send notifications if account is accessed.
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link" href="bootstrap-alert.html">New</a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link" href="bootstrap-badge.html">Settings</a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link" href="bootstrap-breadcrumb.html">Secure</a></li> <!-- send notifications if account is accessed.
                      set password for account etc.-->
                 </ul>
             </li>
@@ -36,9 +37,9 @@
 
                 <a href="#" class="nav-link has-dropdown"> <i class="fa-solid fa-gears"></i> <span>Settings</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Roles</a></li>
-                    <li><a class="nav-link beep beep-sidebar" href="#">Users</a></li>
-                    <li><a class="nav-link beep beep-sidebar" href="#">Report</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="nav-link" href="#">Roles</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="nav-link beep beep-sidebar" href="#">Users</a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="nav-link beep beep-sidebar" href="#">Report</a></li>
                     <!-- IN ADMIN SIDE THE LIST OF REPORTS WILL BE SHOWN IN USER'S SIDE
                     REPORT FORM WILL BE DISPLAYED -->
                     <!--                    <li><a class="nav-link beep beep-sidebar" href="#">Messages</a></li>-->

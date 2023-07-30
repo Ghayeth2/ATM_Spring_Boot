@@ -63,33 +63,30 @@
                 </div>
             </div>
         </li>
-        <li class="dropdown"><a href="#" data-toggle="dropdown"
-                                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div sec:authorize="isAuthenticated()" class="d-sm-none d-lg-inline-block"
-            sec:authentication="principal.username" ></div>
-
-        </a>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown"
+               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <img alt="image" th:src="@{assets/img/avatar/avatar-1.png}" class="rounded-circle mr-1">
+                <div sec:authorize="isAuthenticated()" class="d-sm-none d-lg-inline-block"
+                     sec:authentication="principal.username"></div>
+            </a>
 
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="features-profile.html" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
                 <div class="dropdown-divider"></div>
-<!--      <li th:ref="navbar-item" sec:authorize="!isAuthenticated()">-->
-<!--        <a th:text="'Login'" th:href="@{/login}"/>-->
-<!--      </li>+-->
-
-<!--              <th:block sec:authorize="isAuthenticated()">-->
                 <a sec:authorize="!isAuthenticated()" th:href="@{/atm/login}" class="dropdown-item has-icon">
-                  <i class="fa-solid fa-right-to-bracket"></i> Login
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
                 </a>
-<!--              </th:block>-->
-
-              <div class="dropdown-divider"></div>
-              <a sec:authorize="isAuthenticated()"  th:href="@{/logout}" class="dropdown-item has-icon text-danger">
-                <i  class="fas fa-sign-out-alt"></i> Logout
-            </a>
+                <div class="dropdown-divider"></div>
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="dropdown-item has-icon text-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <div class="dropdown-divider"></div>
+                <a sec:authorize="!isAuthenticated()" th:href="@{/atm/registration}" class="dropdown-item has-icon text-primary">
+                    <i class="fa-solid fa-user-plus"></i> Sign up
+                </a>
             </div>
         </li>
     </ul>
