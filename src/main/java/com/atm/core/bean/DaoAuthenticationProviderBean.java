@@ -1,6 +1,7 @@
 package com.atm.core.bean;
 
 import com.atm.business.abstracts.UserService;
+import com.atm.business.concretes.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,9 @@ public class DaoAuthenticationProviderBean {
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService);
+        // NEED TO SPLIT UserDetailsService TO SEPARATE CLASS
+        // loadUserByUsername*=(String username) this should be moved
+        auth.setUserDetailsService((UserManager)userService);
         auth.setPasswordEncoder(passwordEncoder.passwordEncoder());
         return auth;
     }
