@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
-    void save(UserDto userDto);
+// UserDetailsServices might have broken ISP & SRP
+public interface UserService {
     void update(UserDto userDto, Long id);
 
     // User cannot delete himself, Admin can

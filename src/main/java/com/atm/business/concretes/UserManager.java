@@ -1,5 +1,6 @@
 package com.atm.business.concretes;
 
+import com.atm.business.abstracts.UserRegister;
 import com.atm.business.abstracts.UserService;
 import com.atm.core.bean.PasswordEncoderBean;
 import com.atm.core.utils.converter.DtoEntityConverter;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/* ISP > extending the UserDetailsService interface
+ has broken the ISP not all concrete classes might
+ implement that interface, so we do not extend it
+ instead we implement it in this class
+ it is already an interface, so no need to add our
+ own one.
+ */
+/*
+    In addition, now i broke the UserService interface
+    to add another one with only save() method, we have
+    another class that won't implement all methods in our
+    service interface. just the one.
+ */
 @Service
-public class UserManager implements UserService {
+public class UserManager implements UserService, UserDetailsService, UserRegister {
 
     private UserDao userDao;
     private DtoEntityConverter converter;
@@ -66,7 +81,7 @@ public class UserManager implements UserService {
 
     }
 
-    // Mapping Roles GrantedAuthority
+    // Mapping Roles GrantedAuthority // SRP Violation
     public List<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles){
         return roles.stream().map(
                 // Changing Roles to SimpleGrantedAuthority Object
