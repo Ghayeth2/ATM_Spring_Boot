@@ -18,7 +18,7 @@ import java.util.Date;
 // Auditing
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"created_date,update_date"},allowGetters = true)
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

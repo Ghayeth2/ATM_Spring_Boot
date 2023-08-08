@@ -36,7 +36,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class UserManager implements UserService, UserDetailsService, UserRegister {
-
     private UserDao userDao;
     private DtoEntityConverter converter;
     private PasswordEncoderBean passwordEncoder;
@@ -53,6 +52,8 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
         User user = (User) converter.dtoToEntity(userDto, new User());
         // Encrypting password
         user.setPassword(passwordEncoder.passwordEncoder().encode(user.getPassword()));
+        user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
+        user.setAccountNonLocked(1);
         userDao.save(user);
     }
 
@@ -74,7 +75,7 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByEmail(username);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password!");
         }
         return new CustomUserDetailsDto(user);

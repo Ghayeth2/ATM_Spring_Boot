@@ -1,14 +1,10 @@
 package com.atm.model.dtos;
 
-import com.atm.business.abstracts.UserService;
-import com.atm.business.concretes.UserManager;
 import com.atm.model.entities.Role;
 import com.atm.model.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +45,10 @@ public class CustomUserDetailsDto implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        if(user.getAccountNonLocked() == 1)
+            return true;
+        else
+            return false;
     }
 
     @Override
@@ -60,5 +59,9 @@ public class CustomUserDetailsDto implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser(){
+        return this.user;
     }
 }

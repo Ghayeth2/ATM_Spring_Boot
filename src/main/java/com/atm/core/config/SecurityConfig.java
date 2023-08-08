@@ -19,6 +19,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired private DaoAuthenticationProviderBean authProvider;
 
+    @Autowired
+    private LoginFailureHandlerConfig loginFailureHandler;
+    @Autowired
+    private LoginSuccessHandlerConfig loginSuccessHandler;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.authenticationProvider(authProvider.authenticationProvider());
@@ -34,13 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/atm/registration", "/atm/registration?notMatched",
                         "/atm/registration?success", "" +
                                 "/atm**", "/assets/js/**", "/assets/css/**", "/assets/img/**",
-                "/assets/fonts/**", "/assets/modules/**", "/public/**"
+                "/assets/fonts/**", "/assets/modules/**", "/public/**", "/atm/login"
                 ).permitAll()
 //                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                     .loginPage("/atm/login")
                     .permitAll()
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler)
+                .permitAll()
                     .defaultSuccessUrl("/atm")
                 .and()
                 .logout()
