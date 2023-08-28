@@ -52,7 +52,6 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
         User user = (User) converter.dtoToEntity(userDto, new User());
         // Encrypting password
         user.setPassword(passwordEncoder.passwordEncoder().encode(user.getPassword()));
-        user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
         user.setAccountNonLocked(1);
         userDao.save(user);
     }
