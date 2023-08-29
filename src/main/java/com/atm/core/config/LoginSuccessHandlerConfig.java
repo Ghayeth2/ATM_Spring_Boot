@@ -12,13 +12,13 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-public class LoginSuccessHandlerConfig implements AuthenticationSuccessHandler {
+public class LoginSuccessHandlerConfig extends SimpleUrlAuthenticationSuccessHandler {
     @Autowired
     private UserAccount userAccount;
 
@@ -34,6 +34,6 @@ public class LoginSuccessHandlerConfig implements AuthenticationSuccessHandler {
             userAccount.resetFailedAttempts(user.getEmail());
         }
 
-//        super.onAuthenticationSuccess(request, response, authentication);
+        super.onAuthenticationSuccess(request, response, authentication);
     }
 }

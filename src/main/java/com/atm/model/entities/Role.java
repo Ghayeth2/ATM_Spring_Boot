@@ -1,6 +1,6 @@
 package com.atm.model.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
