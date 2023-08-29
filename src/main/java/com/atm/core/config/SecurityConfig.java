@@ -27,7 +27,7 @@ import java.io.IOException;
 @Configuration
 @Log4j2
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig  {
     private final LoginSuccessHandlerConfig loginSuccessHandler;
     private final LoginFailureHandlerConfig loginFailureHandler;
 

@@ -2235,3 +2235,37 @@ Caused by: java.lang.Throwable: null
 2023-08-29T17:18:35.495+03:00  INFO 11396 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-08-29T17:18:35.497+03:00  INFO 11396 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-08-29T17:18:35.503+03:00  INFO 11396 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-08-29T17:19:03.523+03:00  INFO 18424 --- [restartedMain] com.atm.AtmApplication                   : Starting AtmApplication using Java 17.0.6 with PID 18424 (D:\Java\ATM-master\target\classes started by amalj in D:\Java\ATM-master)
+2023-08-29T17:19:03.526+03:00  INFO 18424 --- [restartedMain] com.atm.AtmApplication                   : No active profile set, falling back to 1 default profile: "default"
+2023-08-29T17:19:03.576+03:00  INFO 18424 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-29T17:19:03.576+03:00  INFO 18424 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-29T17:19:04.391+03:00  INFO 18424 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-29T17:19:04.444+03:00  INFO 18424 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 1 JPA repository interfaces.
+2023-08-29T17:19:04.976+03:00  INFO 18424 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-29T17:19:04.982+03:00  INFO 18424 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-29T17:19:04.982+03:00  INFO 18424 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.12]
+2023-08-29T17:19:05.026+03:00  INFO 18424 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-29T17:19:05.026+03:00  INFO 18424 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1449 ms
+2023-08-29T17:19:05.231+03:00  INFO 18424 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-29T17:19:05.278+03:00  INFO 18424 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
+2023-08-29T17:19:05.280+03:00  INFO 18424 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-08-29T17:19:05.406+03:00  INFO 18424 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-08-29T17:19:05.523+03:00  INFO 18424 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-29T17:19:05.539+03:00  INFO 18424 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-08-29T17:19:05.647+03:00  INFO 18424 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6eeb89c5
+2023-08-29T17:19:05.649+03:00  INFO 18424 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-08-29T17:19:05.680+03:00  WARN 18424 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-29T17:19:05.864+03:00  INFO 18424 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-08-29T17:19:06.381+03:00  INFO 18424 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-29T17:19:07.110+03:00  INFO 18424 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-29T17:19:07.378+03:00  INFO 18424 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-29T17:19:07.676+03:00  WARN 18424 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-29T17:19:07.935+03:00  INFO 18424 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-08-29T17:19:07.986+03:00  INFO 18424 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1691d82f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2c73a07b, org.springframework.security.web.context.SecurityContextHolderFilter@1fe170f4, org.springframework.security.web.header.HeaderWriterFilter@5c2683ac, org.springframework.security.web.csrf.CsrfFilter@50e1768a, org.springframework.security.web.authentication.logout.LogoutFilter@10a5d8ee, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2922c26f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6ad47bc1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@23bb380e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@137d3e20, org.springframework.security.web.access.ExceptionTranslationFilter@277af7d5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2e8eca82]
+2023-08-29T17:19:08.450+03:00  INFO 18424 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-29T17:19:08.501+03:00  INFO 18424 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-29T17:19:08.517+03:00  INFO 18424 --- [restartedMain] com.atm.AtmApplication                   : Started AtmApplication in 5.398 seconds (process running for 6.18)
+2023-08-29T17:19:08.687+03:00  INFO 18424 --- [RMI TCP Connection(1)-192.168.1.104] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-29T17:19:08.687+03:00  INFO 18424 --- [RMI TCP Connection(1)-192.168.1.104] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-29T17:19:08.688+03:00  INFO 18424 --- [RMI TCP Connection(1)-192.168.1.104] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-08-29T17:19:54.881+03:00 DEBUG 18424 --- [http-nio-8080-exec-1] o.h.sql.results.internal.ResultsHelper   : Collection fully initialized: [com.atm.model.entities.User.roles#1]
