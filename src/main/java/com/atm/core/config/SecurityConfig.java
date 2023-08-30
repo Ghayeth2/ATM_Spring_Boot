@@ -29,19 +29,24 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityConfig  {
     private final LoginSuccessHandlerConfig loginSuccessHandler;
+    private final DaoAuthenticationProviderBean authenticationProvider;
     private final LoginFailureHandlerConfig loginFailureHandler;
 
+    @Autowired
     public SecurityConfig(
             LoginSuccessHandlerConfig loginSuccessHandler,
-            LoginFailureHandlerConfig loginFailureHandler
+            LoginFailureHandlerConfig loginFailureHandler,
+            DaoAuthenticationProviderBean auth
     ) {
         this.loginSuccessHandler = loginSuccessHandler;
         this.loginFailureHandler = loginFailureHandler;
+        this.authenticationProvider = auth;
     }
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .authorizeRequests()
                 .requestMatchers(
                         "/atm/registration", "/atm/registration?notMatched",
@@ -51,12 +56,14 @@ public class SecurityConfig  {
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
+
                 .formLogin(form ->
                         form.loginPage("/atm/login")
                                 .permitAll()
+
                                 .successHandler(loginSuccessHandler)
                                 .failureHandler(loginFailureHandler)
-                                .defaultSuccessUrl("/atm")
+//                                .defaultSuccessUrl("/atm")
                 )
                 .logout(logout ->
                         logout.invalidateHttpSession(true)
@@ -65,7 +72,10 @@ public class SecurityConfig  {
                                 )
                                 .logoutSuccessUrl("/atm/login?logout")
                                 .permitAll()
+
                 );
+
+        http.authenticationProvider(authenticationProvider.authenticationProvider());
 
 
         return http.build();
