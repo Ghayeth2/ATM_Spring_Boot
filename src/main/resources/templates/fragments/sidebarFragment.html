@@ -38,10 +38,8 @@
                 <a href="#" class="nav-link has-dropdown"> <i class="fa-solid fa-gears"></i> <span>Settings</span></a>
                 <ul class="dropdown-menu">
                     <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="nav-link" href="#">Roles</a></li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="nav-link beep beep-sidebar" href="#">Users</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="nav-link beep beep-sidebar" th:href="@{/atm/users}">Users</a></li>
                     <li sec:authorize="isAuthenticated()" ><a class="nav-link beep beep-sidebar" href="#">Report</a></li>
-                    <!-- IN ADMIN SIDE THE LIST OF REPORTS WILL BE SHOWN IN USER'S SIDE
-                    REPORT FORM WILL BE DISPLAYED -->
                     <!--                    <li><a class="nav-link beep beep-sidebar" href="#">Messages</a></li>-->
                 </ul>
             </li>

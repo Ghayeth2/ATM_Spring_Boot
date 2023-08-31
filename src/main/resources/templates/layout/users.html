@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<!-- Head & css links -->
+<head th:replace="~{fragments/headFragment::head-section}">
+    <title>Users</title>
+</head>
+<body>
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        <!-- Navbar -->
+        <nav th:replace="~{fragments/navbarFragment::nav-section}"></nav>
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebarFragment::sidebar-section}"></div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Users</h1>
+                </div>
+                <div class="card">
+
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">First name</th>
+                                <th scope="col">Last name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user:${users}">
+                                <th th:text="${user.firstName}"></th>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:if="${user.name} == 'ROLE_ADMIN'"
+                                    th:text="'Admin'" th:else="'User'"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Footer -->
+                        <footer th:replace="~{fragments/footerFragment::footer-section}"></footer>
+                        <!-- Js-links -->
+                        <div th:replace="~{fragments/footFragment::js-links}"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

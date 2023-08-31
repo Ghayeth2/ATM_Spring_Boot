@@ -1,5 +1,6 @@
 package com.atm.business.concretes;
 
+import com.atm.business.abstracts.RoleService;
 import com.atm.business.abstracts.UserRegister;
 import com.atm.business.abstracts.UserService;
 import com.atm.core.bean.PasswordEncoderBean;
@@ -7,6 +8,7 @@ import com.atm.core.utils.converter.DtoEntityConverter;
 import com.atm.dao.UserDao;
 import com.atm.model.dtos.CustomUserDetailsDto;
 import com.atm.model.dtos.UserDto;
+import com.atm.model.dtos.UserRoleDto;
 import com.atm.model.entities.Role;
 import com.atm.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /* ISP > extending the UserDetailsService interface
@@ -39,10 +42,13 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
     private UserDao userDao;
     private DtoEntityConverter converter;
     private PasswordEncoderBean passwordEncoder;
+    private RoleService roleService;
 
     @Autowired
-    public UserManager(UserDao userDao, DtoEntityConverter converter, PasswordEncoderBean passwordEncoder) {
+    public UserManager(UserDao userDao, DtoEntityConverter converter, PasswordEncoderBean passwordEncoder
+                    , RoleService roleService) {
         this.userDao = userDao;
+        this.roleService = roleService;
         this.converter = converter;
         this.passwordEncoder = passwordEncoder;
     }
@@ -52,6 +58,17 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
         User user = (User) converter.dtoToEntity(userDto, new User());
         // Encrypting password
         user.setPassword(passwordEncoder.passwordEncoder().encode(user.getPassword()));
+        Optional<Role> roleOptional =  roleService.findByName("ROLE_USER");
+
+        if (roleOptional.isPresent()) {
+            Role role = roleOptional.get();
+            user.setRoles(Arrays.asList(role));
+        }else{
+            Role role = Role.builder()
+                    .name("ROLE_USER")
+                    .build();
+            user.setRoles(Arrays.asList(role));
+        }
         user.setAccountNonLocked(1);
         userDao.save(user);
     }
@@ -67,8 +84,8 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
     }
 
     @Override
-    public List<UserDto> users() {
-        return null;
+    public List<UserRoleDto> users() {
+        return this.userDao.users();
     }
 
     @Override

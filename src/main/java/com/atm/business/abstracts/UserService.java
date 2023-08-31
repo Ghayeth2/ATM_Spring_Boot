@@ -1,6 +1,7 @@
 package com.atm.business.abstracts;
 
 import com.atm.model.dtos.UserDto;
+import com.atm.model.dtos.UserRoleDto;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -12,5 +13,5 @@ public interface UserService {
 
     // User cannot delete himself, Admin can
     void delete(Long id);
-    List<UserDto> users();
+    List<UserRoleDto> users();
 }
