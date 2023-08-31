@@ -60,10 +60,8 @@ public class SecurityConfig  {
                 .formLogin(form ->
                         form.loginPage("/atm/login")
                                 .permitAll()
-
                                 .successHandler(loginSuccessHandler)
                                 .failureHandler(loginFailureHandler)
-//                                .defaultSuccessUrl("/atm")
                 )
                 .logout(logout ->
                         logout.invalidateHttpSession(true)
