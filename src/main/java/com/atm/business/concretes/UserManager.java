@@ -59,6 +59,10 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
         // Encrypting password
         user.setPassword(passwordEncoder.passwordEncoder().encode(user.getPassword()));
         Optional<Role> roleOptional =  roleService.findByName("ROLE_USER");
+        Optional<Role> roleOpt = roleService.findByName("ROLE_ADMIN");
+
+        if(!roleOpt.isPresent() && !roleOptional.isPresent())
+            user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
 
         if (roleOptional.isPresent()) {
             Role role = roleOptional.get();
@@ -80,7 +84,7 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
 
     @Override
     public void delete(Long id) {
-
+        this.userDao.deleteById(id);
     }
 
     @Override
@@ -92,10 +96,11 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
                 .map(row -> {
                     UserRoleDto user = UserRoleDto.
                         builder()
-                            .firstName((String) row[0])
-                            .lastName((String) row[1])
-                            .email((String) row[2])
-                            .name((String) row[3])
+                            .id((Long) row[0])
+                            .firstName((String) row[1])
+                            .lastName((String) row[2])
+                            .email((String) row[3])
+                            .name((String) row[4])
                         .build();
                     return user;
                 })

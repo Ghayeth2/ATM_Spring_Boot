@@ -16,7 +16,7 @@ public interface UserDao extends JpaRepository<User, Long> {
     @Modifying
     void updateFailedAttempts(int failAttempts, String email);
 
-    @Query(value = "SELECT u.first_name, u.last_name, u.email, r.name\n" +
+    @Query(value = "SELECT u.id, u.first_name, u.last_name, u.email, r.name\n" +
             "FROM atm.users u\n" +
             "INNER JOIN atm.users_roles ur ON u.id = ur.user_id\n" +
             "INNER JOIN atm.roles r ON ur.role_id = r.id", nativeQuery = true)
