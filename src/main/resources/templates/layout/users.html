@@ -39,8 +39,11 @@
                                 <th th:text="${user.firstName}"></th>
                                 <td th:text="${user.lastName}"></td>
                                 <td th:text="${user.email}"></td>
-                                <td th:if="${user.name} == 'ROLE_ADMIN'"
-                                    th:text="'Admin'" th:else="'User'"></td>
+                                <td th:if="${user.name == 'ROLE_ADMIN'}"
+                                    th:text="'Admin'"></td>
+
+                                <td th:if="${user.name == 'ROLE_USER'}"
+                                    th:text="'User'"></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

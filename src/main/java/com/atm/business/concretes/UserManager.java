@@ -85,7 +85,21 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
 
     @Override
     public List<UserRoleDto> users() {
-        return this.userDao.users();
+        List<Object[]> results = this.userDao.users();
+        // Iterating results > mapping UsersRolesDto row by row
+        // converting them into UsersRolesDto object and returning them
+        return results.stream()
+                .map(row -> {
+                    UserRoleDto user = UserRoleDto.
+                        builder()
+                            .firstName((String) row[0])
+                            .lastName((String) row[1])
+                            .email((String) row[2])
+                            .name((String) row[3])
+                        .build();
+                    return user;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
