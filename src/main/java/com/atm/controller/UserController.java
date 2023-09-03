@@ -38,6 +38,14 @@ public class UserController {
         return "redirect:/atm/users?deleted";
     }
 
+    // localhost:8080/atm/user/makeAdmin/{id}
+    @GetMapping("/changeRole/{id}")
+    public String changeRole(@PathVariable("id") Long id){
+        log.info("Id of the user is:"+id);
+        this.userService.changeRole(id);
+        return "redirect:/atm/users?roleChanged";
+    }
+
     @PostMapping
     public String save(@Valid @ModelAttribute("user") UserDto userDto
                 , BindingResult bindingResult, Model model

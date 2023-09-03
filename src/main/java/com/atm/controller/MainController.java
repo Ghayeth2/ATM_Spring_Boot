@@ -45,5 +45,7 @@ public class MainController {
         return "layout/users";
     }
 
+    // User's Transactions// localhost:8080/atm/transactions
+
     // Admin side home page
 }
