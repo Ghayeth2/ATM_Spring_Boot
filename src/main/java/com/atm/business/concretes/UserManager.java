@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Log4j2
-public class UserManager implements UserService, UserDetailsService {
+public class UserManager implements UserService, UserDetailsService, UserRegister {
     private UserDao userDao;
     private DtoEntityConverter converter;
     private PasswordEncoderBean passwordEncoder;
