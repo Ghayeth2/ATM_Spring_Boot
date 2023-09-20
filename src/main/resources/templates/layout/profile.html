@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<!-- Head & css links -->
+<head th:replace="~{fragments/headFragment::head-section}">
+    <title>Profile</title>
+
+</head>
+</head>
+<body>
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        <!-- Navbar -->
+        <nav th:replace="~{fragments/navbarFragment::nav-section}"></nav>
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebarFragment::sidebar-section}"></div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Profile</h1>
+                </div>
+                <div class="section-body">
+                    <h2 class="section-title">Update user details</h2>
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body">
+                                <form th:method="post" th:action="@{/atm/user/update/{id}(id=${user.get().id})}"
+                                      th:object="${user.get()}">
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="firstName">First Name</label>
+                                            <input id="firstName" type="text" class="form-control" name="firstName"
+                                                   th:field="*{user.get().firstName}" autofocus>
+                                            <p class="text-danger" th:if="${#fields.hasErrors()}"
+                                               th:errors="*{user.get().firstName}"></p>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="lastName">Last Name</label>
+                                            <input id="lastName" type="text"
+                                                   th:field="*{user.get().lastName}" class="form-control"
+                                                   name="lastName">
+                                            <p class="text-danger" th:if="${#fields.hasErrors()}"
+                                               th:errors="*{user.get().lastName}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input id="email" type="text"
+                                               th:field="*{user.get().email}" class="form-control" name="email">
+                                        <p class="text-danger" th:if="${#fields.hasErrors()}"
+                                           th:errors="*{user.get().email}"></p>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="section-header">
+                                            <h3>Reset password (Optional)</h3>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="currentPass" class="d-block">Current password</label>
+                                            <input id="currentPass" type="currentPass" class="form-control"
+                                                   name="currentPass">
+                                            <p class="text-danger" th:if="${#fields.hasErrors()}"
+                                               th:errors=""></p>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="password2" class="d-block">Password
+                                                Confirmation</label>
+                                            <input id="password2" type="password" class="form-control"
+                                                   name="password2">
+                                            <p class="text-danger" th:if="${#fields.hasErrors()}"
+                                               th:errors=""></p>
+                                            <p class="text-danger" th:if="${param.notMatched}"
+                                               th:text="'Passwords mismatched!!'"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                            Save
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <!-- Footer -->
+                        <footer th:replace="~{fragments/footerFragment::footer-section}"></footer>
+                        <!-- Js-links -->
+                        <div th:replace="~{fragments/footFragment::js-links}"></div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

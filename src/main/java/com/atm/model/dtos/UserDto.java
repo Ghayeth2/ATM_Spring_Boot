@@ -23,6 +23,7 @@ public class UserDto {
     @NotEmpty(message = "This field is required!")
     @Size(min = 8, max = 40, message = "Password should be in between 8 and 40 characters")
     private String password;
-    @NotEmpty(message = "This field is required!")
     private String password2;
+
+    private String currentPass;
 }

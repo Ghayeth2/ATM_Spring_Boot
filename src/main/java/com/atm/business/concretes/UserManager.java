@@ -13,8 +13,10 @@ import com.atm.model.entities.Role;
 import com.atm.model.entities.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -101,6 +103,26 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
     @Override
     public void delete(Long id) {
         this.userDao.deleteById(id);
+    }
+
+    @Override
+    public Optional<UserDto> findById(Long id) {
+        Optional<User> user = this.userDao.findById(id);
+        if(user.isPresent())
+            return (Optional<UserDto>) converter.entityToDto(this.userDao.findById(id), new UserDto());
+        throw new UsernameNotFoundException("User is not found");
+    }
+
+
+
+    public Long getAuthenticatedUserId(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails){
+            CustomUserDetailsDto userDetails = (CustomUserDetailsDto) authentication.getPrincipal();
+            log.info("user id : "+userDetails.getUser().getId());
+            return userDetails.getUser().getId();
+        }
+        return null;
     }
 
     @Override
