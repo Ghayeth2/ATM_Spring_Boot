@@ -4,6 +4,7 @@ import com.atm.business.abstracts.UserRegister;
 import com.atm.business.abstracts.UserService;
 import com.atm.core.exception.EmailExistsException;
 import com.atm.model.dtos.UserDto;
+import jakarta.persistence.Lob;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,6 +37,26 @@ public class UserController {
     public String delete(@PathVariable("id") Long id){
         this.userService.delete(id);
         return "redirect:/atm/users?deleted";
+    }
+
+    // https:localhost:8080/atm/user/update/{id}
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable("id")Long id, @Valid
+                    @ModelAttribute("user") UserDto userDto,
+                         BindingResult bindingResult, Model model
+            , RedirectAttributes redirectAttributes
+                         ){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userDto);
+            log.info("Errors are: "+ bindingResult.getAllErrors());
+            return "layout/profile";
+        }
+        log.info("Update function in the controller is ACTIVE ");
+
+        this.userService.update(userDto, id);
+        redirectAttributes.addFlashAttribute("success",
+                "Updated successfully");
+        return "redirect:/atm/profile/"+id;
     }
 
     // localhost:8080/atm/user/makeAdmin/{id}

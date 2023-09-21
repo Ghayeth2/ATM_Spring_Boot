@@ -26,56 +26,37 @@
                     <div class="row">
                         <div class="card">
                             <div class="card-body">
-                                <form th:method="post" th:action="@{/atm/user/update/{id}(id=${user.get().id})}"
-                                      th:object="${user.get()}">
+                                <form th:method="post" th:action="@{/atm/user/update/{id}(id=${userId})}"
+                                      th:object="${user}">
+                                    <!--Success message-->
+                                    <div th:if="${success}">
+                                        <div class="alert alert-success text-center" th:text="${success}"></div>
+                                    </div>
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="firstName">First Name</label>
                                             <input id="firstName" type="text" class="form-control" name="firstName"
-                                                   th:field="*{user.get().firstName}" autofocus>
+                                                   th:field="*{firstName}" autofocus>
                                             <p class="text-danger" th:if="${#fields.hasErrors()}"
-                                               th:errors="*{user.get().firstName}"></p>
+                                               th:errors="*{firstName}"></p>
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="lastName">Last Name</label>
                                             <input id="lastName" type="text"
-                                                   th:field="*{user.get().lastName}" class="form-control"
+                                                   th:field="*{lastName}" class="form-control"
                                                    name="lastName">
                                             <p class="text-danger" th:if="${#fields.hasErrors()}"
-                                               th:errors="*{user.get().lastName}"></p>
+                                               th:errors="*{lastName}"></p>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input id="email" type="text"
-                                               th:field="*{user.get().email}" class="form-control" name="email">
+                                               th:field="*{email}" class="form-control" name="email">
                                         <p class="text-danger" th:if="${#fields.hasErrors()}"
-                                           th:errors="*{user.get().email}"></p>
+                                           th:errors="*{email}"></p>
                                         <div class="invalid-feedback">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="section-header">
-                                            <h3>Reset password (Optional)</h3>
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label for="currentPass" class="d-block">Current password</label>
-                                            <input id="currentPass" type="currentPass" class="form-control"
-                                                   name="currentPass">
-                                            <p class="text-danger" th:if="${#fields.hasErrors()}"
-                                               th:errors=""></p>
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label for="password2" class="d-block">Password
-                                                Confirmation</label>
-                                            <input id="password2" type="password" class="form-control"
-                                                   name="password2">
-                                            <p class="text-danger" th:if="${#fields.hasErrors()}"
-                                               th:errors=""></p>
-                                            <p class="text-danger" th:if="${param.notMatched}"
-                                               th:text="'Passwords mismatched!!'"></p>
                                         </div>
                                     </div>
 

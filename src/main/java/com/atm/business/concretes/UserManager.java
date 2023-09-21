@@ -11,8 +11,10 @@ import com.atm.model.dtos.UserDto;
 import com.atm.model.dtos.UserRoleDto;
 import com.atm.model.entities.Role;
 import com.atm.model.entities.User;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,29 +25,34 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @Log4j2
 public class UserManager implements UserService, UserDetailsService, UserRegister {
     private UserDao userDao;
+    @Autowired
+    private AuditorAware<String> auditorAware;
+    private HttpSession httpSession;
     private DtoEntityConverter converter;
     private PasswordEncoderBean passwordEncoder;
     private RoleService roleService;
 
     @Autowired
     public UserManager(UserDao userDao, DtoEntityConverter converter, PasswordEncoderBean passwordEncoder
-                    , RoleService roleService) {
+                    , RoleService roleService, HttpSession httpSession) {
         this.userDao = userDao;
+        this.httpSession = httpSession;
         this.roleService = roleService;
         this.converter = converter;
         this.passwordEncoder = passwordEncoder;
     }
 
+    // Role changing method
     @Override
     public void changeRole(Long id){
         User user = userDao.getById(id);
@@ -81,22 +88,39 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
         if(!roleOpt.isPresent() && !roleOptional.isPresent())
             user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
 
+        Role role;
         if (roleOptional.isPresent()) {
-            Role role = roleOptional.get();
-            user.setRoles(Arrays.asList(role));
+            role = roleOptional.get();
         }else{
-            Role role = Role.builder()
+            role = Role.builder()
                     .name("ROLE_USER")
                     .build();
-            user.setRoles(Arrays.asList(role));
         }
+        user.setRoles(Arrays.asList(role));
         user.setAccountNonLocked(1);
         userDao.save(user);
     }
 
     @Override
     public void update(UserDto userDto, Long id) {
-
+        User userAudits = this.userDao.findById(id).get();
+        User user = (User) converter.dtoToEntity(userDto, new User());
+        user.setId(id);
+        String currentAuditor = auditorAware.getCurrentAuditor().orElse("unknown");
+        user.setUpdatedBy(currentAuditor);
+        user.setCreatedBy(currentAuditor);
+        user.setDate(userAudits.getDate());
+        user.setCreatedDate(userAudits.getCreatedDate());
+        user.setUpdatedDate(getCurrentDate());
+        user.setAccountNonLocked(1);
+        user.setFailedAttempts(0);
+        user.setLockTime(null);
+        log.info("Password coming from database : "+userAudits.getPassword());
+        user.setPassword(passwordEncoder.passwordEncoder().encode(userAudits.getPassword()));
+        this.userDao.save(user);
+        log.info("user is updated");
+        httpSession.setAttribute("username", user.getFirstName()+" "+user.getLastName());
+        log.info("Updated session's username: "+httpSession.getAttribute("username"));
     }
 
     // In case of user not found, String with exception will be thrown (REST API)
@@ -106,14 +130,20 @@ public class UserManager implements UserService, UserDetailsService, UserRegiste
     }
 
     @Override
-    public Optional<UserDto> findById(Long id) {
+    public UserDto findById(Long id) {
         Optional<User> user = this.userDao.findById(id);
-        if(user.isPresent())
-            return (Optional<UserDto>) converter.entityToDto(this.userDao.findById(id), new UserDto());
+        if(user.isPresent()){
+            UserDto userDto = (UserDto) converter.entityToDto(user.get(), new UserDto());
+            return userDto;
+        }
         throw new UsernameNotFoundException("User is not found");
     }
 
-
+    public Date getCurrentDate() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+        return new Date(timestamp.getTime());
+    }
 
     public Long getAuthenticatedUserId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

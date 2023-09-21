@@ -16,6 +16,6 @@ public interface UserService {
     // User cannot delete himself, Admin can
     void delete(Long id);
 
-    Optional<UserDto> findById(Long id);
+    UserDto findById(Long id);
     List<UserRoleDto> users();
 }

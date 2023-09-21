@@ -61,6 +61,7 @@ public class MainController {
     public String profile(Model model, @PathVariable("id") Long id){
         model.addAttribute("user", this.userService
                 .findById(id));
+        model.addAttribute("userId", id);
         return "layout/profile";
     }
 

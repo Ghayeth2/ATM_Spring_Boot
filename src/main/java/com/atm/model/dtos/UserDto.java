@@ -20,10 +20,9 @@ public class UserDto {
     @Email(message = "Enter email formatted text")
     @NotEmpty(message = "This field is required!")
     private String email;
-    @NotEmpty(message = "This field is required!")
+//    @NotEmpty(message = "This field is required!")
     @Size(min = 8, max = 40, message = "Password should be in between 8 and 40 characters")
     private String password;
     private String password2;
 
-    private String currentPass;
 }
