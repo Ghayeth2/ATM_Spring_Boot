@@ -1,6 +1,6 @@
 package com.atm.core.audit;
 
-import com.atm.model.dtos.CustomUserDetailsDto;
+import com.atm.models.dtos.CustomUserDetailsDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
