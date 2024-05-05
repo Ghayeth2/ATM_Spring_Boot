@@ -1,4 +1,4 @@
-package com.atm.model.entities;
+package com.atm.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -22,6 +22,8 @@ public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
+    private String slug;
     @Column(name = "created_by", nullable = false)
     @CreatedBy
     private String createdBy;
